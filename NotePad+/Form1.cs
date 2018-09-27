@@ -325,6 +325,15 @@ namespace NotePad_
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter sw = new StreamWriter(File.Create(saveFileDialog1.FileName));
+                UserControl1 tab = (UserControl1)this.Tab1.SelectedTab;
+                sw.Write(tab.t.Text);
+                Tab1.SelectedTab.Text = saveFileDialog1.FileName;
+                sw.Dispose();
+
+            }
         }
     }
 }
