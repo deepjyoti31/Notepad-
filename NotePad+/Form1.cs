@@ -27,6 +27,9 @@ namespace NotePad_
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+            UserControl1 tab = (UserControl1)this.Tab1.SelectedTab;
+            string path = tab.Text;
+
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
@@ -34,6 +37,7 @@ namespace NotePad_
             saveFileDialog1.FilterIndex = 2;
             saveFileDialog1.RestoreDirectory = true;
             saveFileDialog1.AddExtension = true;
+            
 
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -41,16 +45,21 @@ namespace NotePad_
                 if ((myStream = saveFileDialog1.OpenFile()) != null)
                 {
                     // Code to write the stream goes here.
-                    using (StreamWriter file = new StreamWriter(this.saveFileDialog1.FileName))
+                    using (StreamWriter file = new StreamWriter("this.saveFileDialog1.FileName"))
                     {
-                        foreach (string line in textBox3.Text.Split('\n'))
+                        if (!File.Exists(path))
                         {
-                            // If the line doesn't contain the word 'Second', write the line to the file.
-                            if (!line.Contains("Second"))
-                            {
-                                file.WriteLine(line);
-                            }
+                               // StreamWriter file = new StreamWriter(File.Create(saveFileDialog1.FileName));
+                                file.Write(tab.t.Text);
+                                Tab1.SelectedTab.Text = saveFileDialog1.FileName;
+                                file.Dispose();
                         }
+                        else
+                        {
+                            string createText = tab.t.Text + Environment.NewLine;
+                            File.WriteAllText(path, createText);
+                        }
+
                     }
 
                     myStream.Close();
@@ -311,6 +320,11 @@ namespace NotePad_
         private void statusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
