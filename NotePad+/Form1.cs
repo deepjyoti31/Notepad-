@@ -27,9 +27,7 @@ namespace NotePad_
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            UserControl1 tab = (UserControl1)this.Tab1.SelectedTab;
-            string path = tab.Text;
-
+           // UserControl1 tab = (UserControl1)this.Tab1.SelectedTab;
             Stream myStream;
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
 
@@ -42,28 +40,28 @@ namespace NotePad_
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if ((myStream = saveFileDialog1.OpenFile()) != null)
-                {
-                    // Code to write the stream goes here.
-                    using (StreamWriter file = new StreamWriter("this.saveFileDialog1.FileName"))
-                    {
-                        if (!File.Exists(path))
-                        {
-                               // StreamWriter file = new StreamWriter(File.Create(saveFileDialog1.FileName));
-                                file.Write(tab.t.Text);
-                                Tab1.SelectedTab.Text = saveFileDialog1.FileName;
-                                file.Dispose();
-                        }
-                        else
-                        {
-                            string createText = tab.t.Text + Environment.NewLine;
-                            File.WriteAllText(path, createText);
-                        }
+                StreamWriter file = new StreamWriter(File.Create(saveFileDialog1.FileName));
+                UserControl1 tab = (UserControl1)this.Tab1.SelectedTab;
+                file.Write(tab.t.Text);
+               // Tab1.SelectedTab.Text = saveFileDialog1.FileName;
+                file.Dispose();
 
-                    }
+                //if ((myStream = saveFileDialog1.OpenFile()) != null)
+                //{
+                //    //// Code to write the stream goes here.
+                //    //using (StreamWriter file = new StreamWriter("this.saveFileDialog1.FileName"))
+                //    //{
 
-                    myStream.Close();
-                }
+                //    //    file.Write(tab.t.Text);
+                //    //    //Tab1.SelectedTab.Text = saveFileDialog1.FileName;
+                //    //    // file.Dispose();
+
+                //    //}
+
+                    
+
+                //    myStream.Close();
+                //}
             }
 
             
@@ -304,9 +302,8 @@ namespace NotePad_
 
         private void goToToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UserControl1 tab = (UserControl1)this.Tab1.SelectedTab;
-
             
+
         }
 
         private void timeDateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -317,8 +314,40 @@ namespace NotePad_
             tab.t.AppendText(thisDay.ToString());
         }
 
+        
+
         private void statusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
+            
+
+                //// Declare the StatusBar control
+                //StatusBar simpleStatusBar = new StatusBar();
+
+                //// Set the ShowPanels property to False.
+                //simpleStatusBar.ShowPanels = false;
+
+                //// Set the text.
+                //simpleStatusBar.Text = "This is a single-panel status bar";
+
+                //// Set the width and anchor the StatusBar
+                //simpleStatusBar.Width = 200;
+                //simpleStatusBar.Anchor = AnchorStyles.Top;
+
+                //// Add the StatusBar to the form.
+                //this.Controls.Add(simpleStatusBar);
+
+                //if (simpleStatusBar.Visible)
+                //{
+                //    simpleStatusBar.Visible = false;
+                //}
+                //else
+                //{
+                //    simpleStatusBar.Visible = true;
+                //}
+
+            
+
             
         }
 
@@ -334,6 +363,11 @@ namespace NotePad_
                 sw.Dispose();
 
             }
+        }
+
+        private void viewHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://docs.microsoft.com/en-us/dotnet/index?view=netframework-4.7.2");
         }
     }
 }
